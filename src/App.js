@@ -2,10 +2,20 @@ import React, { useState, useEffect } from "react";
 import data from "./data";
 import Article from "./Article";
 
+const displayStoredMode = () => {
+  let mode = "light-mode";
+  if (localStorage.getItem("mode")) {
+    mode = localStorage.getItem("mode");
+  }
+  return mode;
+};
+
 function App() {
-  const [mode, setMode] = useState("dark-mode");
+  const [mode, setMode] = useState(displayStoredMode());
+
   useEffect(() => {
     document.body.className = mode;
+    localStorage.setItem("mode", mode);
   }, [mode]);
 
   const switchColorHandler = () => {
@@ -19,7 +29,7 @@ function App() {
   // VANILLA JS METHOD:
   // useEffect(() => {
   //   document.body.classList.add(mode)
-  // }, [mode]);
+  // }, [mode]);`
   // const switchColorHandler = () => {
   //   if (document.body.classList.contains("light-mode")) {
   //     document.body.classList.remove("light-mode");
